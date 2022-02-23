@@ -1,0 +1,89 @@
+{
+  "images": [
+    "iconWithBackground",
+    "logoWithoutBackground",
+    "logoWithBackground",
+    "iconWithoutBackground"
+  ],
+  "name": "dommoaction",
+  "connectorType": "domoAction",
+  "type": "basic",
+  "authCodeText": "//This logging is here for testing! Remove before publishing your connector\nDOMO.log('metadata.account.username: ' + metadata.account.username);\nDOMO.log('metadata.account.password: ' + metadata.account.password); \n\nvar encodedData = DOMO.b64EncodeUnicode(metadata.account.username + ':' + metadata.account.password);\n\nhttprequest.addHeader('Authorization', 'Basic ' + encodedData);\n\nvar res = httprequest.get('https://developer.domo.com/samplecrm');  \n\nif (httprequest.getStatusCode() == 200) {\n  auth.authenticationSuccess();\n} else {\n  auth.authenticationFailed('Your username and password are incorrect');\n}",
+  "userName": "nikita",
+  "password": "12345",
+  "apiKey": "",
+  "clientKey": "",
+  "clientSecret": "",
+  "userId": null,
+  "customAccountFields": [
+    {
+      "label": null,
+      "value": null,
+      "type": null
+    }
+  ],
+  "domoClientId": null,
+  "domoClientSecret": null,
+  "authorizationURL": null,
+  "accessTokenURL": null,
+  "scope": null,
+  "additionalParameters": null,
+  "oauthUserName": null,
+  "oauthPassword": null,
+  "additionalInfo": null,
+  "reportLength": 1,
+  "days": 7,
+  "processData": "DOMO.log('metadata.account.username: ' + metadata.account.username);  //example\t\nDOMO.log('metadata.account.password: ' + metadata.account.password);  //test \nDOMO.log('metadata.report: ' + metadata.report); //Opportunities\n\n\nif(metadata.report == 'Opportunities'){\n\n\thttprequest.addHeader('Authorization', 'Basic ' + DOMO.b64EncodeUnicode(metadata.account.username + ':' + metadata.account.password));\n\n  //example of how to access \"Pull data from the last x day(s)\" value:\n\t//var res = httprequest.get('https://developer.domo.com/samplecrm?days=' + metadata.days);  \n\t\n\tvar res = httprequest.get('https://developer.domo.com/samplecrm');\n\t\n\tDOMO.log('res: ' + res);\n\n\tvar lines = res.split('\\r');\n\n\tvar header = lines[0].split(',');\n\t\n\t  //There are three data types: datagrid.DATA_TYPE_STRING, datagrid.DATA_TYPE_DOUBLE and datagrid.DATA_TYPE_DATETIME\n\t  // date format needs to be yyyy-MM-dd'T'HH:mm:ss\n\t\n\t  datagrid.addColumn('Account.Id', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Account.Industry', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Account.Name', datagrid.DATA_TYPE_STRING); \n    datagrid.addColumn('Amount', datagrid.DATA_TYPE_DOUBLE);\n    datagrid.addColumn('CloseDate', datagrid.DATA_TYPE_DATETIME);\n    datagrid.addColumn('CreatedDate', datagrid.DATA_TYPE_DATETIME);\n    datagrid.addColumn('Id', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('IsClosed', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('IsWon', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('LastActivityDate', datagrid.DATA_TYPE_DATETIME);\n    datagrid.addColumn('LastModifiedDate', datagrid.DATA_TYPE_DATETIME);\n    datagrid.addColumn('LeadSource', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Name', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('NextStep', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Probability', datagrid.DATA_TYPE_DOUBLE);\n    datagrid.addColumn('StageName', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Type', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('ForecastCategoryName', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Strategic_Account__c', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Forecasted_ACV__c', datagrid.DATA_TYPE_DOUBLE);\n    datagrid.addColumn('Competitor__c', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Owner.CreatedDate', datagrid.DATA_TYPE_DATETIME);\n    datagrid.addColumn('Owner.Email', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Owner.FullPhotoUrl', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Owner.Id', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Owner.IsActive', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Owner.Manager', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Owner.Name', datagrid.DATA_TYPE_STRING);\n    datagrid.addColumn('Owner.UserRole.Name', datagrid.DATA_TYPE_STRING);\n    \n\n\tfor(var i = 1; i < lines.length; i++){\n\t\n    \tconsole.log('line: ' +  lines[i]); ///For heavy logging use browser console logging\n    \t\n    \tvar rows = lines[i].split(',');\n    \t\n    \tfor(var j = 0; j < rows.length; j++){\n    \t  \n    \t  if(j == 4){\n    \t    datagrid.addCell(rows[j] + 'T00:00:00');\n    \t  }\n    \t  else if(j == 9){\n    \t    datagrid.addCell(rows[j] + 'T00:00:00');\n    \t  }\n    \t  else{\n    \t    datagrid.addCell(rows[j]);\n    \t  }\n    \t  \n    \t}\n    \t\n    \tdatagrid.endRow();\n    \n\t}\n\n} else {\n  \n  DOMO.log(metadata.report + ' is not a supported report.');\n  datagrid.error(0, metadata.report + ' is not a supported report.');\n  \n}",
+  "reports": [
+    "abc"
+  ],
+  "advancedReports": null,
+  "guid": "ba4f8576-ada4-41dc-956b-be17929c55a9",
+  "authorName": "nikita",
+  "accesstokenMethod": null,
+  "tokenAddlParams": null,
+  "publishPrivate": true,
+  "visibilityType": null,
+  "parameters": [
+    {
+      "name": "",
+      "type": "string",
+      "required": false,
+      "order": -1,
+      "options": [],
+      "command": null,
+      "helpText": null,
+      "showWhen": null,
+      "value": null,
+      "dateSelectorValue": null,
+      "$$hashKey": "object:151"
+    }
+  ],
+  "commands": null,
+  "showAdvanced": true,
+  "submittedVersion": 0,
+  "submittedMajorVersion": 0,
+  "publishedVersion": 0,
+  "workbenchEnabled": false,
+  "dataProviderCreated": false,
+  "description": null,
+  "tags": [
+    "abc"
+  ],
+  "successResponseDefinition": "abc",
+  "errorResponseDefinition": "abc",
+  "updateCode": false,
+  "requestingCustomerId": null,
+  "ownerId": null,
+  "ownerCustomerId": null,
+  "parentGuid": null,
+  "testingProfiles": null,
+  "enableForAppstore": false,
+  "visible": true,
+  "validImages": [
+    "iconWithBackground",
+    "iconWithoutBackground",
+    "logoWithBackground",
+    "logoWithoutBackground"
+  ]
+}

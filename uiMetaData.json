@@ -1,0 +1,52 @@
+{
+  "name": "dommoaction",
+  "connectorType": "domoAction",
+  "userId": null,
+  "domoClientId": null,
+  "domoClientSecret": null,
+  "additionalInfo": null,
+  "reportLength": 1,
+  "days": 7,
+  "reports": [
+    "abc"
+  ],
+  "advancedReports": null,
+  "guid": "ba4f8576-ada4-41dc-956b-be17929c55a9",
+  "publishPrivate": true,
+  "visibilityType": null,
+  "parameters": [
+    {
+      "name": "",
+      "type": "string",
+      "required": false,
+      "order": -1,
+      "options": [],
+      "command": null,
+      "helpText": null,
+      "showWhen": null,
+      "value": null,
+      "dateSelectorValue": null,
+      "$$hashKey": "object:151"
+    }
+  ],
+  "commands": null,
+  "showAdvanced": true,
+  "submittedVersion": 0,
+  "submittedMajorVersion": 0,
+  "publishedVersion": 0,
+  "workbenchEnabled": false,
+  "dataProviderCreated": false,
+  "description": null,
+  "tags": [
+    "abc"
+  ],
+  "successResponseDefinition": "abc",
+  "errorResponseDefinition": "abc",
+  "updateCode": false,
+  "requestingCustomerId": null,
+  "ownerId": null,
+  "ownerCustomerId": null,
+  "parentGuid": null,
+  "testingProfiles": null,
+  "visible": true
+}
